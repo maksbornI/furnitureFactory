@@ -1,6 +1,6 @@
 const InputArray = (props) => {
 
-    return  <div>  </div>
+    return  <div> New list of model </div>
 
 
 }
