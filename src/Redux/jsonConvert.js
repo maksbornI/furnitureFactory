@@ -1,4 +1,19 @@
-[
+function convertJsonToJs(jsonData) {
+    debugger
+    const data = JSON.parse(jsonData);
+    const jsCode = data.map(item => {
+        const keys = Object.keys(item);
+        const formattedItem = keys.map(key => {
+            const formattedKey = /^[a-zA-Z]+$/.test(key) ? key : `'${key}'`;
+            const formattedValue = typeof item[key] === 'string' ? `'${item[key]}'` : item[key];
+            return `${formattedKey}: ${formattedValue}`;
+        });
+        return `{ ${formattedItem.join(', ')} }`;
+    });
+    return `const data = [\n  ${jsCode.join(',\n  ')}\n];`;
+}
+
+const jsonData = `[
   {
     "MODEL": "LIVY",
     "PODZESPÓŁ": "OTOMANA LEWA [rys. 002]",
@@ -1546,4 +1561,7 @@
     "MATERIAŁ": "STAL",
     "UWAGI": "BRW"
   }
-]
+]`;
+
+const jsCode = convertJsonToJs(jsonData);
+console.log(jsCode);
